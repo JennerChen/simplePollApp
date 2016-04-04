@@ -1,0 +1,5 @@
+{
+    "_comment":"这是app的配置文件,修改appId,apiKey可以切换对应的数据库",
+    "applicationId":"16a497f5dd78f4804634ef443df1b9ef",
+    "restApiKey":"51d0f82ec2278348a77ce8c1192f2f42"
+}

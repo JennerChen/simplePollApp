@@ -19,6 +19,9 @@ module.exports = {
                     presets: ['es2015', 'react']
                 }
             }, {
+                test: [/\.json$/],
+                loader: 'json-loader'
+            },{
                 test: /\.less$/,
                 loader: 'style-loader!css-loader!less-loader'
             }, // use ! to chain loaders
@@ -33,6 +36,7 @@ module.exports = {
     },
     externals: {
         "jquery":"jQuery",
-        "d3":"d3"
+        "d3":"d3",
+        "Bmob":"Bmob"
     }
 };

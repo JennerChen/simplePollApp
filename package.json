@@ -19,6 +19,7 @@
     "file-loader": "^0.7.2",
     "gulp": "^3.9.1",
     "gulp-connect": "^3.2.2",
+    "json-loader": "^0.5.4",
     "less": "^1.7.5",
     "less-loader": "^0.7.7",
     "style-loader": "^0.8.0",
