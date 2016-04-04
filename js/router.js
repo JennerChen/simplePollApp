@@ -33,10 +33,10 @@ var App = React.createClass({
           //pay_content是一个空div，运行跳转到支付宝的js代码
           $("#pay_content").html(obj.html);
         }, function(err){
-          alert("发送失败:"+err);
+          console.log("发送失败:"+err);
         });
     },
-})
+});
 
 // var routes = {
 //   path: '/',
@@ -68,6 +68,6 @@ render((
     <Route path="/" component={App}>
     </Route>
   </Router>
-), document.getElementById("container"))
+), document.getElementById("container"));
 
 // render(<Router routes={routes} history={browserHistory} />, document.getElementById("container"))
