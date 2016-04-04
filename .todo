@@ -1,6 +1,7 @@
 app:
     development:
-        ☐ bmob后台的接入实现
+        ✔ bmob后台的接入实现 @done(2016-04-04 23:30) @project(app / development)
+        ☐ 各种工具的添加/部署
         ☐ 登录/登出功能的实现
         ☐ 新建一个问卷/投票 表单
         ☐ 填写一个问卷/投票
