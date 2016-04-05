@@ -127,12 +127,14 @@ var Signup = React.createClass({
     },
     render: function(){
         var commonClass = "form-group label-floating is-empty signupForm";
+        var commonClassWithoutIsEmpty = "form-group label-floating signupForm";
         var inputV = this.state.inputHasValidated;
         var usernameClass = inputV[0] ? (this.state.usernameValidated ? commonClass+" has-success" : commonClass + " has-warning" ) : commonClass;
         var passwordClass = inputV[1] ? (this.state.passwordValidated ? commonClass+" has-success" : commonClass + " has-warning" ) : commonClass;
         var passwordPairClass = inputV[2] ? ( this.state.passwordPaired ? commonClass+" has-success" : commonClass + " has-warning" ) : commonClass;
         var pwdPairMsg = this.state.passwordPaired ? "验证成功" : (this.state.pwdAgInvalidatedMsg ? this.state.pwdAgInvalidatedMsg : "请再次输入密码(必填)");
         var emailClass = inputV[3] ? ( this.state.email ? commonClass+" has-success" : commonClass + " has-warning" ) : commonClass;
+        var validatePass = this.state.usernameValidated && this.state.passwordValidated && this.state.passwordPaired;
         switch (this.state.currentFocusInput) {
             case "username":
                 usernameClass += " is-focused";
@@ -183,7 +185,7 @@ var Signup = React.createClass({
 
                         <div className="form-group">
                             <div className="col-md-8 col-md-offset-4 text-center">
-                                <button type="button" className="btn btn-raised btn-primary" onClick= { this.register }>注册</button>
+                                <button type="button" className={ !validatePass ? " btn " : "btn btn-raised btn-primary "} onClick= { this.register }>注册</button>
                             </div>
                         </div>
                     </fieldset>

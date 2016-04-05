@@ -10,16 +10,18 @@ var config = require("./config.json");
 var HeaderBar = require("./common/header.jsx");
 var Login = require("./login/login.jsx");
 var SignUp = require("./login/signup.jsx");
+var PollList = require("./pollList/pollContainer.jsx");
+var MakePoll = require("./pollList/makePoll.jsx");
 require("../css/index.less");
 var App = React.createClass({
     getInitialState: function() {
         Bmob.initialize(config.applicationId, config.restApiKey);
         return {
-            currentUser : Bmob.User.current()
+            // currentUser : Bmob.User.current()不用再此处设置,因为 该值会变
         };
     },
     render: function () {
-        var user = this.state.currentUser;
+        var user = Bmob.User.current();
         return (
             <div >
                 <HeaderBar user = { user }></HeaderBar>
@@ -46,13 +48,23 @@ var routes = {
             if(!Bmob.User.current()){
                 replace("/login");
             }else{
-                replace('/home');
+                replace('/polls');
             }
         }
   },
   childRoutes: [
     { path: 'login', component: Login },
     { path: 'signup', component: SignUp },
+    {
+        path: 'polls',
+        component: PollList,
+        childRoutes:[
+            {
+                path: 'new',
+                component:MakePoll
+            }
+        ]
+    }
     // {
     //   path: 'inbox',
     //   component: Inbox,
