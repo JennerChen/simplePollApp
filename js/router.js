@@ -7,67 +7,77 @@ var {
 } = require("react-router");
 var loginApp = require('./login/login.jsx');
 var config = require("./config.json");
-Bmob.initialize(config.applicationId, config.restApiKey);
+var HeaderBar = require("./common/header.jsx");
+var Login = require("./login/login.jsx");
+var SignUp = require("./login/signup.jsx");
+require("../css/index.less");
 var App = React.createClass({
+    getInitialState: function() {
+        Bmob.initialize(config.applicationId, config.restApiKey);
+        return {
+            currentUser : Bmob.User.current()
+        };
+    },
     render: function () {
+        var user = this.state.currentUser;
         return (
             <div >
-                <h1>App</h1>
-                <ul>
-                    <li>
-                        <Link to='/about'>About</Link>
-                    </li>
-                    <li>
-                        <Link to='/inbox'>Inbox</Link>
-                    </li>
-                    <li>
-                        <Link to='/inbox/messages/4'>Message</Link>
-                    </li>
-                </ul>
-                {this.props.children}
+                <HeaderBar user = { user }></HeaderBar>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-12">
+                            { this.props.children  }
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     },
-    componentDidMount: function () {
-        Bmob.Pay.webPay(0.01, "充值", "给应用充值0.01元").then(function(obj) {
-          //pay_content是一个空div，运行跳转到支付宝的js代码
-          $("#pay_content").html(obj.html);
-        }, function(err){
-          console.log("发送失败:"+err);
-        });
+    componentDidMount: function() {
+        $.material.init();
     },
 });
+var routes = {
+  path: '/',
+  component: App,
+  indexRoute: {
+        onEnter: function(nextState, replace){
+            Bmob.initialize(config.applicationId, config.restApiKey);
+            if(!Bmob.User.current()){
+                replace("/login");
+            }else{
+                replace('/home');
+            }
+        }
+  },
+  childRoutes: [
+    { path: 'login', component: Login },
+    { path: 'signup', component: SignUp },
+    // {
+    //   path: 'inbox',
+    //   component: Inbox,
+    //   childRoutes: [{
+    //     path: 'messages/:id',
+    //     onEnter: function(params,replace){
+    //         replace(`/messages/${params.params.id}`);
+    //     }
+    //     // ({ params }, replace) => replace(`/messages/${params.id}`)
+    //   }]
+    // },
+    // {
+    //   component: Inbox,
+    //   childRoutes: [{
+    //     path: 'messages/:id', component: Message
+    //   }]
+    // }
+  ]
+};
+// render((
+//     <Router history={hashHistory}>
+//         <Route path="/" component={App}>
+//
+//         </Route>
+//     </Router>
+// ), document.getElementById("container"));
 
-// var routes = {
-//   path: '/',
-//   component: App,
-//   indexRoute: { component: Dashboard },
-//   childRoutes: [
-//     { path: 'about', component: About },
-//     {
-//       path: 'inbox',
-//       component: Inbox,
-//       childRoutes: [{
-//         path: 'messages/:id',
-//         onEnter: function(params,replace){
-//             replace(`/messages/${params.params.id}`);
-//         }
-//         // ({ params }, replace) => replace(`/messages/${params.id}`)
-//       }]
-//     },
-//     {
-//       component: Inbox,
-//       childRoutes: [{
-//         path: 'messages/:id', component: Message
-//       }]
-//     }
-//   ]
-// }
-render((
-    <Router history={hashHistory}>
-    <Route path="/" component={App}>
-    </Route>
-  </Router>
-), document.getElementById("container"));
-
-// render(<Router routes={routes} history={browserHistory} />, document.getElementById("container"))
+render(<Router routes={routes} history={browserHistory} />, document.getElementById("container"));

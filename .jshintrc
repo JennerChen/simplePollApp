@@ -18,6 +18,6 @@
   "undef": true,
   "nonew": true,
   "forin": true,
-  "maxcomplexity":true,
+  "maxcomplexity":false,
   "esversion":6
 }
