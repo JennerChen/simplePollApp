@@ -1,6 +1,14 @@
 var React = require("react");
 var { Link } = require("react-router");
 var Signined = require("./signined.jsx");
+
+import AppBar from 'material-ui/lib/app-bar';
+import IconButton from 'material-ui/lib/icon-button';
+import NavigationClose from 'material-ui/lib/svg-icons/navigation/close';
+import IconMenu from 'material-ui/lib/menus/icon-menu';
+import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
+import MenuItem from 'material-ui/lib/menus/menu-item';
+
 var HeaderBar = React.createClass({
     render: function(){
         var user;
@@ -16,25 +24,18 @@ var HeaderBar = React.createClass({
             );
         }
         return (
-            <div className="navbar navbar-default">
-                <div className="container">
-                    <a className="navbar-brand" href="#">Poll</a>
-                    <ul className="nav navbar-nav">
-                        <li className="active"><a href="#">Active</a></li>
-                        <li><a href="#">Link</a></li>
-                    </ul>
-                    <form className="navbar-form navbar-left">
-                        <div className="form-group is-empty">
-                            <input type="text" className="form-control col-sm-8" placeholder="Search" />
-                            <span className="material-input"></span>
-                        </div>
-                    </form>
-                    <ul className="nav navbar-nav navbar-right">
-                        { user }
-                    </ul>
-                </div>
-            </div>
+            <AppBar
+                title="Poll"
+                onLeftIconButtonTouchTap = { this.handleTouch }
+                iconElementRight={
+                    user
+                }
+            >
+            </AppBar>
         );
+    },
+    handleTouch: function(e){
+        console.log(e);
     }
 });
 module.exports = HeaderBar;

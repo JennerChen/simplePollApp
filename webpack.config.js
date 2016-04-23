@@ -1,4 +1,6 @@
 var webpack = require('webpack');
+var path = require('path');
+// var buildPath = path.resolve(__dirname, 'src/www');
 // definePlugin takes raw strings and inserts them, so you can put strings of JS if you want.
 var definePlugin = new webpack.DefinePlugin({
   __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
@@ -7,6 +9,10 @@ var definePlugin = new webpack.DefinePlugin({
 
 module.exports = {
     entry: './js/router.js',
+    resolve: {
+        // 当require时,下列字符不用写后缀
+        extensions: ['', '.js', '.md', '.txt','.jsx','.json'],
+    },
     output: {
         filename: 'build/bundle.js'
     },
@@ -16,7 +22,7 @@ module.exports = {
                 test: [/\.js$/,/\.jsx$/],
                 loader: 'babel-loader',
                 query: {
-                    presets: ['es2015', 'react']
+                    presets: ['es2015', 'react','stage-1']
                 }
             }, {
                 test: [/\.json$/],

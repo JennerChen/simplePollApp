@@ -6,8 +6,11 @@ app:
         ☐ 新建一个问卷/投票 表单
             功能:
                 ☐ 新建一个问卷
+                    详情:
+                        ☐ 制作一个表单的公用组件
                 ☐ 查看所有问卷
                 ☐ 查看某个问卷
         ☐ 填写一个问卷/投票
     bugs:
     other:
+        ☐ UI组件的更换,从bootstrap material => materail ui for react,因为原先组件与react不兼容

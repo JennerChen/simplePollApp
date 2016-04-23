@@ -1,5 +1,11 @@
 var React = require("react");
 var { Link } = require("react-router");
+
+import IconButton from 'material-ui/lib/icon-button';
+import IconMenu from 'material-ui/lib/menus/icon-menu';
+import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
+import MenuItem from 'material-ui/lib/menus/menu-item';
+import Divider from 'material-ui/lib/divider';
 var Signined = React.createClass({
     contextTypes: {
         router: React.PropTypes.object
@@ -8,19 +14,24 @@ var Signined = React.createClass({
         Bmob.User.logOut();
         this.context.router.push("/login");
     },
+    handleNewPoll: function(){
+        this.context.router.push("/polls/new");
+    },
     render: function(){
         return (
-            <li className="dropdown">
-                <a Link = "#" data-target="#" className="dropdown-toggle" data-toggle="dropdown">{ this.props.user.attributes.username }
-                    <b className="caret"></b></a>
-                <ul className="dropdown-menu">
-                    <li><Link to="/polls/new" >新问卷</Link></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li className="divider"></li>
-                    <li><a href="#" onClick = { this.signout }>登出</a></li>
-                </ul>
-            </li>
+            <IconMenu
+                iconButtonElement={
+                    <IconButton><MoreVertIcon /></IconButton>
+                }
+                targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+            >
+                <MenuItem primaryText={ "欢迎: "+this.props.user.attributes.username } />
+                <MenuItem primaryText="新问卷" onClick={ this.handleNewPoll }>
+                </MenuItem>
+                <Divider />
+                <MenuItem primaryText="登出" onClick = { this.signout } />
+            </IconMenu>
         );
     }
 });
